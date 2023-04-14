@@ -15,15 +15,16 @@ if __name__ == '__main__':
         for question in faq:
             expander = st.beta_expander(question)
             with expander:
-                button_pressed = st.button("Выбрать вопрос")
+                button_pressed = st.button(f"Выбрать вопрос {question}")
                 if button_pressed:
                     answer_input = st.empty()
-                    answer = answer_input.text_input("Введите ответ:")
+                    answer = st.text_input("Введите ответ:")
                     if answer:
                         faq[question]["Ответ"] = answer
                 else:
                     st.write(faq[question]["Ответ"])
-
+                    
+                    
     with col2:
         selected_question = st.radio("Выберите вопрос", list(faq.keys()))
         st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
