@@ -1,7 +1,40 @@
 import streamlit as st
 import pandas as pd
 
-import numpy as np
+import streamlit as st
 
-dataframe = np.random.randn(10, 20)
-st.dataframe(dataframe)
+# Вопросы и ответы в формате словаря
+faq = {
+    "Вопрос 1": {
+        "Ответ": "Ответ на вопрос 1",
+        "Подсказка": "Это подсказка для вопроса 1"
+    },
+    "Вопрос 2": {
+        "Ответ": "Ответ на вопрос 2",
+        "Подсказка": "Это подсказка для вопроса 2"
+    },
+    "Вопрос 3": {
+        "Ответ": "Ответ на вопрос 3",
+        "Подсказка": "Это подсказка для вопроса 3"
+    }
+}
+
+# Создание боковой панели со списком вопросов
+st.sidebar.title("Вопросы")
+selected_question = st.sidebar.radio("", list(faq.keys()))
+
+# Создание формы для ввода ответа на выбранный вопрос
+st.write(f"## {selected_question}")
+answer = st.text_input("Введите ответ здесь:")
+
+# Отображение подсказки и вариантов ответа в центральной колонке
+st.write(f"### Подсказка")
+st.write(faq[selected_question]["Подсказка"])
+
+st.write(f"### Варианты ответа")
+options = ["Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4", "Вариант 5"]
+selected_option = st.radio("", options)
+
+# Отображение ответа на выбранный вопрос в правой колонке
+st.write(f"### Ответ")
+st.write(faq[selected_question]["Ответ"])
