@@ -22,16 +22,10 @@ faq = {
 # Создание трех равных колонок
 col1, col2, col3 = st.beta_columns(3)
 
-# Создание виджетов "аккордеон" для списка вопросов в первой колонке
+# Создание списка вопросов в первой колонке с помощью виджета selectbox()
 with col1:
     st.write("## Список вопросов")
-    for question in faq.keys():
-        with st.beta_expander(question):
-            st.write(faq[question]["Подсказка"])
-            # Форма для ввода ответа на выбранный вопрос
-            with st.form(key=question):
-                answer = st.text_input("Введите ответ здесь:")
-                submit_button = st.form_submit_button("Отправить ответ")
+    selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
 
 # Отображение подсказки и вариантов ответа во второй колонке
 with col2:
@@ -45,3 +39,11 @@ with col2:
 with col3:
     st.write(f"## Ответ на вопрос: {selected_question}")
     st.write(faq[selected_question]["Ответ"])
+
+# Форма для ввода ответа на выбранный вопрос
+with st.beta_expander(selected_question):
+    st.write(faq[selected_question]["Подсказка"])
+    with st.form(key=selected_question):
+        answer = st.text_input("Введите ответ здесь:")
+        submit_button = st.form_submit_button("Отправить ответ")
+В этом примере кода переменная `selected
