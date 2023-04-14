@@ -1,9 +1,9 @@
 import streamlit as st
 
 faq = {
-    "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
-    "Вопрос 2": {"Ответ": "Ответ на вопрос 2", "Подсказка": "Подсказка для вопроса 2"},
-    "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Подсказка": "Подсказка для вопроса 3"},
+    "Does your organization have a physical security policy?": {"Answer": "Answer for question 1", "Hint": "hint for question 1"},
+    "What is your organizations SLA for incident response notifications?": {"Answer": "Ответ на вопрос 2", "Hint": "Подсказка для вопроса 2"},
+    "Does your organization use a VPN when remote connections need access to the internal network?": {"Answer": "Ответ на вопрос 3", "Hint": "Подсказка для вопроса 3"},
 }
 
 if __name__ == '__main__':
@@ -13,7 +13,7 @@ if __name__ == '__main__':
 
     with col1:
         for question in faq:
-            button_pressed = st.button(f"Выбрать вопрос {question}")
+            button_pressed = st.button(f"Select a question {question}")
             if button_pressed:
                 selected_question = question
                 break
@@ -23,20 +23,20 @@ if __name__ == '__main__':
                     
         if selected_question:
             answer_input = st.empty()
-            answer = st.text_input("Введите ответ:")
+            answer = st.text_input("Your answer:")
             if answer:
-                faq[selected_question]["Ответ"] = answer
+                faq[selected_question]["Answer"] = answer
         else:
-            st.write("Выберите вопрос")
+           # st.write("Select a question")
                     
     with col2:
-        st.write(f"Подсказка: {faq[selected_question]['Подсказка']}" if selected_question else "")
-        st.write("Варианты ответов:")
-        st.write("1. Ответ 1")
-        st.write("2. Ответ 2")
-        st.write("3. Ответ 3")
-        st.write("4. Ответ 4")
-        st.write("5. Ответ 5")
+        st.write(f"FAQ: {faq[selected_question]['Hint']}" if selected_question else "")
+        st.write("Possible answer:")
+        st.write("1. Answer 1")
+        st.write("2. Answer 2")
+        st.write("3. Answer 3")
+        st.write("4. Answer 4")
+        st.write("5. Answer 5")
 
     with col3:
-        st.write(f"Ответ на вопрос '{selected_question}': {faq[selected_question]['Ответ']}" if selected_question else "")
+        st.write(f"Answer '{selected_question}': {faq[selected_question]['Answer']}" if selected_question else "")
