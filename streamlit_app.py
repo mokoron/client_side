@@ -8,7 +8,9 @@ faq = {
     "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Подсказка": "Подсказка для вопроса 3"},
 }
 
-selected_question = st.sidebar.radio("Выберите вопрос", list(faq.keys()))
+selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
+
+st.set_page_config(layout="wide")
 
 col1, col2, col3 = st.beta_columns(3)
 
