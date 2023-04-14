@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-import streamlit as st
 
 faq = {
     "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
