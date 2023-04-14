@@ -3,47 +3,36 @@ import pandas as pd
 
 import streamlit as st
 
-# Вопросы и ответы в формате словаря
 faq = {
-    "Вопрос 1": {
-        "Ответ": "Ответ на вопрос 1",
-        "Подсказка": "Это подсказка для вопроса 1"
-    },
-    "Вопрос 2": {
-        "Ответ": "Ответ на вопрос 2",
-        "Подсказка": "Это подсказка для вопроса 2"
-    },
-    "Вопрос 3": {
-        "Ответ": "Ответ на вопрос 3",
-        "Подсказка": "Это подсказка для вопроса 3"
-    }
+    "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
+    "Вопрос 2": {"Ответ": "Ответ на вопрос 2", "Подсказка": "Подсказка для вопроса 2"},
+    "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Подсказка": "Подсказка для вопроса 3"},
 }
 
-# Создание трех равных колонок
+selected_question = st.sidebar.selectbox("Выберите вопрос", list(faq.keys()))
+
 col1, col2, col3 = st.beta_columns(3)
 
-# Создание списка вопросов в первой колонке с помощью виджета selectbox()
 with col1:
-    st.write("## Список вопросов")
-    selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
+    for question in faq:
+        expander = st.beta_expander(question)
+        with expander:
+            if question == selected_question:
+                answer = st.text_input("Введите ответ:")
+                if answer:
+                    faq[selected_question]["Ответ"] = answer
+            else:
+                st.write(faq[question]["Ответ"])
 
-# Отображение подсказки и вариантов ответа во второй колонке
 with col2:
-    st.write(f"## Подсказка")
-    st.write(faq[selected_question]["Подсказка"])
-    st.write(f"## Варианты ответа")
-    options = ["Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4", "Вариант 5"]
-    selected_option = st.radio("", options)
+    st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
+    st.write("Варианты ответов:")
+    st.write("1. Ответ 1")
+    st.write("2. Ответ 2")
+    st.write("3. Ответ 3")
+    st.write("4. Ответ 4")
+    st.write("5. Ответ 5")
 
-# Отображение ответа на выбранный вопрос в третьей колонке
 with col3:
-    st.write(f"## Ответ на вопрос: {selected_question}")
+    st.write(f"Ответ на вопрос '{selected_question}':")
     st.write(faq[selected_question]["Ответ"])
-
-# Форма для ввода ответа на выбранный вопрос
-with st.beta_expander(selected_question):
-    st.write(faq[selected_question]["Подсказка"])
-    with st.form(key=selected_question):
-        answer = st.text_input("Введите ответ здесь:")
-        submit_button = st.form_submit_button("Отправить ответ")
-
