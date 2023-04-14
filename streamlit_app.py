@@ -1,51 +1,39 @@
 import streamlit as st
-from streamlit.components.v1 import html
 
 faq = {
-    "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Варианты ответов": ["Ответ 1", "Ответ 2", "Ответ 3"]},
-    "Вопрос 2": {"Ответ": "Ответ на вопрос 2", "Варианты ответов": ["Ответ 1", "Ответ 2", "Ответ 3"]},
-    "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Варианты ответов": ["Ответ 1", "Ответ 2", "Ответ 3"]},
+    "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
+    "Вопрос 2": {"Ответ": "Ответ на вопрос 2", "Подсказка": "Подсказка для вопроса 2"},
+    "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Подсказка": "Подсказка для вопроса 3"},
 }
 
-selected_question = st.sidebar.selectbox("Выберите вопрос", list(faq.keys()))
+if __name__ == '__main__':
+    st.set_page_config(layout="wide")
+    
+    col1, col2, col3 = st.beta_columns(3)
 
-col1, col2, col3 = st.beta_columns(3)
+    with col1:
+        for question in faq:
+            expander = st.beta_expander(question)
+            with expander:
+                button_pressed = st.button("Выбрать вопрос")
+                if button_pressed:
+                    answer_input = st.empty()
+                    answer = answer_input.text_input("Введите ответ:")
+                    if answer:
+                        faq[question]["Ответ"] = answer
+                else:
+                    st.write(faq[question]["Ответ"])
 
-with col1:
-    for question in faq:
-        expander = st.beta_expander(question)
-        with expander:
-            if question == selected_question:
-                answer = html.radio("Выберите ответ", faq[selected_question]["Варианты ответов"])
-                st.write(f"Ответ на вопрос '{selected_question}': {answer}")
-                style = """
-                    input[type="radio"] {
-                        visibility: hidden;
-                    }
-                    label[for^="radio"] {
-                        display: block;
-                        padding: 5px 10px;
-                        border: 1px solid #CCC;
-                        border-radius: 5px;
-                        cursor: pointer;
-                    }
-                    label[for^="radio"]:hover {
-                        background-color: #EEE;
-                    }
-                    input[type="radio"]:checked + label {
-                        background-color: #DDD;
-                    }
-                """
-                html(f'<style>{style}</style>')
-            else:
-                st.write(faq[question]["Ответ"])
+    with col2:
+        selected_question = st.radio("Выберите вопрос", list(faq.keys()))
+        st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
+        st.write("Варианты ответов:")
+        st.write("1. Ответ 1")
+        st.write("2. Ответ 2")
+        st.write("3. Ответ 3")
+        st.write("4. Ответ 4")
+        st.write("5. Ответ 5")
 
-with col2:
-    st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
-    st.write("Варианты ответов:")
-    for option in faq[selected_question]["Варианты ответов"]:
-        st.write(f"- {option}")
-
-with col3:
-    st.write(f"Ответ на вопрос '{selected_question}':")
-    st.write(faq[selected_question]["Ответ"])
+    with col3:
+        st.write(f"Ответ на вопрос '{selected_question}':")
+        st.write(faq[selected_question]["Ответ"])
