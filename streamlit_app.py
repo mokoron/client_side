@@ -3,30 +3,29 @@ import pandas as pd
 
 
 faq = {
-    "What is your organizations SLA for incident response notifications?": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
+    "Вопрос 1": {"Ответ": "Ответ на вопрос 1", "Подсказка": "Подсказка для вопроса 1"},
     "Вопрос 2": {"Ответ": "Ответ на вопрос 2", "Подсказка": "Подсказка для вопроса 2"},
     "Вопрос 3": {"Ответ": "Ответ на вопрос 3", "Подсказка": "Подсказка для вопроса 3"},
 }
 
 if __name__ == '__main__':
     st.set_page_config(layout="wide")
-
-    selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
-
+    
     col1, col2, col3 = st.beta_columns(3)
 
     with col1:
         for question in faq:
             expander = st.beta_expander(question)
             with expander:
-                if question == selected_question:
+                if st.button("Выбрать вопрос"):
                     answer = st.text_input("Введите ответ:")
                     if answer:
-                        faq[selected_question]["Ответ"] = answer
+                        faq[question]["Ответ"] = answer
                 else:
                     st.write(faq[question]["Ответ"])
 
     with col2:
+        selected_question = st.radio("Выберите вопрос", list(faq.keys()))
         st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
         st.write("Варианты ответов:")
         st.write("1. Ответ 1")
