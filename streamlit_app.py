@@ -26,8 +26,8 @@ if __name__ == '__main__':
                     
                     
     with col2:
-        selected_question = st.radio("Выберите вопрос", list(faq.keys()))
-        st.write(f"Подсказка: {faq[selected_question]['Подсказка']}")
+     #   selected_question = st.radio("Выберите вопрос", list(faq.keys()))
+        st.write(f"Подсказка: {faq[selected_question]['FAQ']}")
         st.write("Варианты ответов:")
         st.write("1. Ответ 1")
         st.write("2. Ответ 2")
