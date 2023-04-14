@@ -19,22 +19,23 @@ faq = {
     }
 }
 
-# Создание боковой панели со списком вопросов
-st.sidebar.title("Вопросы")
-selected_question = st.sidebar.radio("", list(faq.keys()))
+# Создание трем равнозначных колонок
+col1, col2, col3 = st.beta_columns(3)
 
-# Создание формы для ввода ответа на выбранный вопрос
-st.write(f"## {selected_question}")
-answer = st.text_input("Введите ответ здесь:")
+# Создание формы для ввода ответа на выбранный вопрос в первой колонке
+with col1:
+    selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
+    answer = st.text_input("Введите ответ здесь:")
 
-# Отображение подсказки и вариантов ответа в центральной колонке
-st.write(f"### Подсказка")
-st.write(faq[selected_question]["Подсказка"])
+# Отображение подсказки и вариантов ответа во второй колонке
+with col2:
+    st.write(f"## Подсказка")
+    st.write(faq[selected_question]["Подсказка"])
+    st.write(f"## Варианты ответа")
+    options = ["Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4", "Вариант 5"]
+    selected_option = st.radio("", options)
 
-st.write(f"### Варианты ответа")
-options = ["Вариант 1", "Вариант 2", "Вариант 3", "Вариант 4", "Вариант 5"]
-selected_option = st.radio("", options)
-
-# Отображение ответа на выбранный вопрос в правой колонке
-st.write(f"### Ответ")
-st.write(faq[selected_question]["Ответ"])
+# Отображение ответа на выбранный вопрос в третьей колонке
+with col3:
+    st.write(f"## Ответ на вопрос: {selected_question}")
+    st.write(faq[selected_question]["Ответ"])
