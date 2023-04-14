@@ -27,7 +27,7 @@ if __name__ == '__main__':
             if answer:
                 faq[selected_question]["Answer"] = answer
         else:
-           # st.write("Select a question")
+            st.write(" ")
                     
     with col2:
         st.write(f"FAQ: {faq[selected_question]['Hint']}" if selected_question else "")
