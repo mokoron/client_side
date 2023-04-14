@@ -28,12 +28,15 @@ with col1:
     for question in faq.keys():
         with st.beta_expander(question):
             st.write(faq[question]["Подсказка"])
+            st.write("## Ввод ответа")
+            #selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
+            answer = st.text_input("Введите ответ здесь:")
 
 # Создание формы для ввода ответа на выбранный вопрос в первой колонке
-with col1:
-    st.write("## Ввод ответа")
-    selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
-    answer = st.text_input("Введите ответ здесь:")
+#with col1:
+ #   st.write("## Ввод ответа")
+  #  selected_question = st.selectbox("Выберите вопрос", list(faq.keys()))
+   # answer = st.text_input("Введите ответ здесь:")
 
 # Отображение подсказки и вариантов ответа во второй колонке
 with col2:
