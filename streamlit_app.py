@@ -13,21 +13,24 @@ if __name__ == '__main__':
 
     with col1:
         for question in faq:
-            expander = st.beta_expander(question)
-            with expander:
-                button_pressed = st.button(f"Выбрать вопрос {question}")
-                if button_pressed:
-                    answer_input = st.empty()
-                    answer = st.text_input("Введите ответ:")
-                    if answer:
-                        faq[question]["Ответ"] = answer
-                else:
-                    st.write(faq[question]["Ответ"])
+            button_pressed = st.button(f"Выбрать вопрос {question}")
+            if button_pressed:
+                selected_question = question
+                break
+        
+        if 'selected_question' not in locals():
+            selected_question = None
                     
+        if selected_question:
+            answer_input = st.empty()
+            answer = st.text_input("Введите ответ:")
+            if answer:
+                faq[selected_question]["Ответ"] = answer
+        else:
+            st.write("Выберите вопрос")
                     
     with col2:
-     #   selected_question = st.radio("Выберите вопрос", list(faq.keys()))
-        st.write(f"Подсказка: {faq[selected_question]['FAQ']}")
+        st.write(f"Подсказка: {faq[selected_question]['Подсказка']}" if selected_question else "")
         st.write("Варианты ответов:")
         st.write("1. Ответ 1")
         st.write("2. Ответ 2")
@@ -36,5 +39,4 @@ if __name__ == '__main__':
         st.write("5. Ответ 5")
 
     with col3:
-        st.write(f"Ответ на вопрос '{selected_question}':")
-        st.write(faq[selected_question]["Ответ"])
+        st.write(f"Ответ на вопрос '{selected_question}': {faq[selected_question]['Ответ']}" if selected_question else "")
