@@ -46,4 +46,4 @@ with st.beta_expander(selected_question):
     with st.form(key=selected_question):
         answer = st.text_input("Введите ответ здесь:")
         submit_button = st.form_submit_button("Отправить ответ")
-В этом примере кода переменная `selected
+
